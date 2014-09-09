@@ -16,18 +16,15 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 	function doLogin(callback){
 		var isLoginByTimer = false;
 
-		timer = $interval(function(){
-			$rootScope.$apply(function(){
-				checkLogin(function(authResponse){
-					if (response.status === 'connected') {
-						isLoginByTimer = true;
-						$interval.cancel(timer);
-						callback && callback(authResponse);
-					}
-				});
-			});
-			
-		}, 200);
+		// timer = $interval(function(){
+		// 	checkLogin(function(authResponse){
+		// 		if (response.status === 'connected') {
+		// 			isLoginByTimer = true;
+		// 			$interval.cancel(timer);
+		// 			callback && callback(authResponse);
+		// 		}
+		// 	});
+		// }, 200);
 
 		FB.login(function(response) {
 			$interval.cancel(timer);

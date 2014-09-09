@@ -13,6 +13,7 @@ WebApp: http://tienganhthatde.com/chat/
     <content src="index.html" />
     <access origin="*" />
 
+    <!--
     <preference name="DisallowOverscroll" value="true" />
     <preference name="fullscreen" value="false" />
     <preference name="webviewbounce" value="true" />
@@ -26,6 +27,6 @@ WebApp: http://tienganhthatde.com/chat/
     <gap:plugin name="com.ionic.keyboard" version="1.0.2" />
     <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
     <gap:plugin name="org.apache.cordova.inappbrowser" version="0.2.4" />
-
+	-->
 
 </widget>
