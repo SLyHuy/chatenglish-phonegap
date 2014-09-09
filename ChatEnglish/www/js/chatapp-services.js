@@ -17,16 +17,13 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 		var isLoginByTimer = false;
 
 		timer = $interval(function(){
-			$rootScope.$apply(function(){
-				checkLogin(function(authResponse){
-					if (response.status === 'connected') {
-						isLoginByTimer = true;
-						$interval.cancel(timer);
-						callback && callback(authResponse);
-					}
-				});
+			checkLogin(function(authResponse){
+				if (response.status === 'connected') {
+					isLoginByTimer = true;
+					$interval.cancel(timer);
+					callback && callback(authResponse);
+				}
 			});
-			
 		}, 200);
 
 		FB.login(function(response) {
