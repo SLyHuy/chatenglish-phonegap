@@ -18,5 +18,14 @@ WebApp: http://tienganhthatde.com/chat/
     <preference name="webviewbounce" value="true" />
     <preference name="stay-in-webview" value="yes" />
 
+    <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.4.0">
+        <param name="APP_ID" value="1449890398617312" />
+        <param name="APP_NAME" value="Chat với người lạ by English" />
+    </gap:plugin>
+    <gap:plugin name="com.ququplay.websocket.websocket" version="0.1.0" />
+    <gap:plugin name="com.ionic.keyboard" version="1.0.2" />
+    <gap:plugin name="org.apache.cordova.device" version="0.2.8" />
+    <gap:plugin name="org.apache.cordova.inappbrowser" version="0.2.4" />
+
 
 </widget>
