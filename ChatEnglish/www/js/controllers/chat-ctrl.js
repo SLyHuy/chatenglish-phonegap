@@ -27,10 +27,13 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 		element.style['height'] = (e.clientHeight - e.keyboardHeight) + 'px';
 		$ionicScrollDelegate.resize();
 
+		console.log('show');
+
 		$timeout(function(){
 			var position = $ionicScrollDelegate.getScrollPosition();
 			position.top += (e.keyboardHeight);
 			$ionicScrollDelegate.scrollTo(position.left, position.top);
+			console.log('show + count');
 			//$ionicScrollDelegate.scrollBottom(true);
 		});
 	}
@@ -39,6 +42,7 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 		var element = document.getElementById('chatDetailView');
 		element.style['height'] = '';
 		$ionicScrollDelegate.resize();
+		console.log('hide');
 		
 	}
 
