@@ -1,19 +1,31 @@
 ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 	function checkLogin(callback){
-		factory.getLoginStatus(function(response) {
-			console.log(response);
-			if (response.status === 'connected') {
-				callback && callback(response.authResponse);
-			}
-			else{
+		if (window.cordova){
+			facebookConnectPlugin.getLoginStatus(function(response) {
+				console.log(response);
+				if (response.status === 'connected') {
+					callback && callback(response.authResponse);
+				}
+				else{
+					callback && callback(false);
+				}
+			}, function(response){
+				console.log(response);
 				callback && callback(false);
-			}
-		}, function(response){
-			console.log(response);
-			callback && callback(false);
+			});
 		}
-
-		);
+		else{
+			FB.getLoginStatus(function(response) {
+				console.log(response);
+				if (response.status === 'connected') {
+					callback && callback(response.authResponse);
+				}
+				else{
+					callback && callback(false);
+				}
+			});
+		}
+		
 	};
 
 	var timer;
@@ -31,26 +43,52 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 		// 	});
 		// }, 200);
 
-		facebookConnectPlugin.login(['email','public_profile','user_friends'], function(response) {
-			console.log(response);
-			$interval.cancel(timer);
-			if (isLoginByTimer){
-				return;
-			}
-			if(response.authResponse) {
-				// FB.api('/me', function(response) {
-				// 	console.log(response);
-				// });
-				callback && callback(response.authResponse);
-			} else {
+		if (window.cordova){
+			facebookConnectPlugin.login(['email','public_profile','user_friends'], function(response) {
+				console.log(response);
+				$interval.cancel(timer);
+				if (isLoginByTimer){
+					return;
+				}
+				if(response.authResponse) {
+					// FB.api('/me', function(response) {
+					// 	console.log(response);
+					// });
+					callback && callback(response.authResponse);
+				} else {
+					console.log('User cancelled login or did not fully authorize.');
+					callback && callback(false);
+				}
 				
-			}
-			
-		}, function(response){
-			console.log('User cancelled login or did not fully authorize.');
-			console.log(response)
-			callback && callback(false);
-		});
+			}, function(response){
+				console.log('User cancelled login or did not fully authorize.');
+				console.log(response)
+				callback && callback(false);
+			});
+		}
+		else{
+			FB.login(function(response) {
+				console.log(response);
+				$interval.cancel(timer);
+				if (isLoginByTimer){
+					return;
+				}
+				if(response.authResponse) {
+					// FB.api('/me', function(response) {
+					// 	console.log(response);
+					// });
+					callback && callback(response.authResponse);
+				} else {
+					console.log('User cancelled login or did not fully authorize.');
+					callback && callback(false);
+				}
+				
+			},{
+				scope: 'email,public_profile,user_friends'
+			});
+		}
+
+		
 	};
 
 	return {

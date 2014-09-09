@@ -91,15 +91,16 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 		fbInited = false;
 		$scope.titleBtn = 'Loading...';
 
-		if (ionic.Platform.isWebView()){
+		if (window.codova){
 			// if in webview (such as codova)
 			ionic.Platform.ready(function(){
-				FB.init({
-					appId: Config.fbAppId,
-					nativeInterface: CDV.FB,
-					useCachedDialogs: false
-				});
+				// FB.init({
+				// 	appId: Config.fbAppId,
+				// 	nativeInterface: CDV.FB,
+				// 	useCachedDialogs: false
+				// });
 				fbInited = true;
+				console.log('inited');
 				callbackFB();
 			});
 		}
