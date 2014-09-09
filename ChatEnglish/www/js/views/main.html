@@ -1,0 +1,19 @@
+<ion-view title="{{title}}" hide-back-button="true">
+	<ion-nav-buttons side="right">
+		<i class="button button-icon icon ion-ios7-compose-outline s-color" ng-click="newChat()"></i>
+	</ion-nav-buttons>
+	<ion-content>
+		<div class="card">
+			<div class="item item-text-wrap s-start" >
+				<h2 class="padding-bottom" ng-bind="textHeader">Start chatting with Stranger</h2>
+				<button class="button button-positive" ng-class="{'icon-left': !isLogin, 'ion-social-facebook': !isLogin}" ng-click="newChat()" ng-bind="titleBtn"></button>
+			</div>
+		</div>
+	</ion-content>
+
+	<div class="text-version">
+		<p>Version 0.2.0 Beta</p>
+		<p>&copy; 2014 by <a href="#" onclick="alert(1);"><strong>Tiếng Anh Thật Dễ</strong></a></p>
+	</div>
+
+</ion-view>

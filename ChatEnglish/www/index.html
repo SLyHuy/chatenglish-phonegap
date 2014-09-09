@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#">
+<head>
+	<meta charset="utf-8">
+	<title>Chat với người lạ by English</title>
+	<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+	<meta name="title" content="Chat với người lạ by English" />
+	<meta name="description" content="App chat với người lạ bằng tiếng Anh, giúp các bạn giao tiếp bằng Tiếng Anh tự tin hơn." />
+	<meta name="keywords" content="english, chat, study, tienganhthatde, tiếng anh, thật dễ, học, giao tiếp, ứng dụng" />
+	<meta name="robots" content="index, follow" />
+	<meta name="author" content="tienganhthatde.com" />
+
+	<meta property="og:url" content="http://tienganhthatde.com/chat/" />
+	<meta property="og:title" content="Chat với người lạ by English" />
+	<meta property="og:description" content="App chat với người lạ bằng tiếng Anh, giúp các bạn giao tiếp bằng Tiếng Anh tự tin hơn." />
+	<meta property="og:image" content="" />
+
+	<link href="css/ionic.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+	<script src="js/ionic.bundle.js"></script>
+	
+	<!-- Needed for Cordova/PhoneGap (will be a 404 during development) -->
+	<script src="cordova.js"></script>
+ 
+	<script src="cdv-plugin-fb-connect.js"></script>
+	
+	<script src="facebook-js-sdk.js"></script>
+</head>
+<body ng-app="ChatApp">
+	<div id="fb-root"></div>
+
+	<ion-nav-bar class="nav-title-slide-ios7 bar-light" ng-controller="navBarCtrl">
+		<ion-nav-back-button class="button button-icon button-clear s-color" ng-click="exit()">
+			<i class="icon ion-ios7-arrow-back"></i> <span>Exit</span>
+		</ion-nav-back-button>
+	</ion-nav-bar>
+	<ion-nav-view animation="slide-left-right"></ion-nav-view>
+
+
+
+	<script type="text/javascript" src="js/chat-app.js"></script>
+	<script type="text/javascript" src="js/chatapp-services.js"></script>
+	<script type="text/javascript" src="js/controllers/main-ctrl.js"></script>
+	<script type="text/javascript" src="js/controllers/chat-ctrl.js"></script>
+</body>
+</html>

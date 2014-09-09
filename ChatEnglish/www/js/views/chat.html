@@ -1,0 +1,33 @@
+<ion-view title="{{title}}" hide-back-button="false">
+	<ion-content class="chat-page" id="chatDetailView">		
+		<div style="margin-top:0.5em;" id="chatDetailContent">
+			<div ng-repeat="item in chats" ng-show="!item.isDelete" ng-class="{	'chat-time': item.type == 'time',
+																'chat': item.type=='me' || item.type=='stranger' || item.type=='system' || item.type=='typing', 
+																'me': item.type=='me', 
+																'friend': item.type=='stranger' || item.type=='typing',
+																'system': item.type=='system',
+
+															}">
+
+				<div ng-if="item.type!='typing'" class="content-outer">
+					<div class="content" ng-bind="item.content">
+						
+					</div>
+				</div>
+				<div ng-if="item.type=='typing'" class="content-outer">
+					<div class="content typing"><div class="wrap-img-typing"><img height="34px" src="images/typing.gif" alt=""/></div></div>
+				</div>
+
+			</div>
+		</div>
+	</ion-content>
+	
+	
+	<form ng-submit="sendChat()">
+		<div class="bar bar-footer sent-chat" keyboard-attach ng-class="{'lowerKitKat': lowerKitKat}">
+			<input type="text" class="item item-input" ng-model="newChat" style="font-size: 1.2em;" focus-me="focusInput"  ng-keyup="chatKeyUp($event)"/>				
+			<input class="button button-clear texbox-button s-color" type="submit" value="Send" style="margin:0;" />	
+		</div>
+	</form>
+	
+</ion-view>

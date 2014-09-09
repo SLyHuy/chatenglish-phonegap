@@ -1,0 +1,22 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.tienganhthatde.chat" version="0.2.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" versionCode="1022">
+    <name>Chat English</name>
+    <description>Chat với người lạ by English. Hỗ trợ việc luyện tập giao tiếp Tiếng Anh. 
+Sản phẩm của Tiếng Anh Thật Dễ.
+Fb: https://www.facebook.com/tienganhthatde
+Web: http://tienganhthatde.com
+WebApp: http://tienganhthatde.com/chat/
+    </description>
+    <author href="http://tienganhthatde.com" email="s@swind.vn">
+		sWind Technology and Media .Ltd;
+	</author>
+    <content src="index.html" />
+    <access origin="*" />
+
+    <preference name="DisallowOverscroll" value="true" />
+    <preference name="fullscreen" value="false" />
+    <preference name="webviewbounce" value="true" />
+    <preference name="stay-in-webview" value="yes" />
+
+
+</widget>
