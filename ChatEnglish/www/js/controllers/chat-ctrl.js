@@ -99,6 +99,10 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 				$interval.cancel(timer);
 			}
 
+			if (data.from == 'system' && data.message == 'Error! Please try again.'){
+				window.userData = null;
+			}
+
 		}
 		else if (data.type == 'action'){
 			if (data.action == 'typing'){

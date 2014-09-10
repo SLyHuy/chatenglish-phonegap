@@ -2,7 +2,7 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 	function checkLogin(callback){
 		if (window.cordova){
 			facebookConnectPlugin.getLoginStatus(function(response) {
-				console.log(response);
+				console.log(JSON.stringify(response));
 				if (response.status === 'connected') {
 					callback && callback(response.authResponse);
 				}
