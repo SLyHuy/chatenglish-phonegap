@@ -53,17 +53,17 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 		//check fb login status
 		appService.checkLogin(function(response){
 			//$scope.$apply(function(){
-				if (response){
+				if (response && response.userID != 'null'){
 					window.isLogin = $scope.isLogin = true;
 					$scope.titleBtn = 'New Chat';
 					$scope.textHeader = 'Start chatting with Stranger';
 
-					if (response.userId){
-						response.userID = response.userId;
-					}
-					else{
-						response.userId = response.userID;
-					}
+					// if (response.userId){
+					// 	response.userID = response.userId;
+					// }
+					// else{
+					// 	response.userId = response.userID;
+					// }
 
 					window.userData = response;
 				}
@@ -82,8 +82,8 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
     // if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
     // if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
     // if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
+	if (typeof window.userData == 'undefined' || window.userData == null || (!window.codova && typeof window.FB == 'undefined')){
 
-	if (typeof window.userData == 'undefined' || typeof window.FB == 'undefined'){
 		$ionicLoading.show({
 			template: 'Loading facebook connection...'
 		});
@@ -91,17 +91,23 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 		fbInited = false;
 		$scope.titleBtn = 'Loading...';
 
-		if (ionic.Platform.isWebView()){
+		if (window.codova){
 			// if in webview (such as codova)
-			ionic.Platform.ready(function(){
-				FB.init({
-					appId: Config.fbAppId,
-					nativeInterface: CDV.FB,
-					useCachedDialogs: false
-				});
+			if (window.userData == 'null'){
 				fbInited = true;
 				callbackFB();
-			});
+			}
+			else{
+				ionic.Platform.ready(function(){
+					// FB.init({
+					// 	appId: Config.fbAppId,
+					// 	nativeInterface: CDV.FB,
+					// 	useCachedDialogs: false
+					// });
+					fbInited = true;
+					callbackFB();
+				});
+			}
 		}
 		else{
 			//for debug localhost on web, not using in real web.

@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.tienganhthatde.chat" version="0.2.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" versionCode="2">
+<widget id="com.tienganhthatde.chat" version="0.2.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" versionCode="4">
     <name>Chat English</name>
     <description>Chat với người lạ by English. Hỗ trợ việc luyện tập giao tiếp Tiếng Anh. 
 Sản phẩm của Tiếng Anh Thật Dễ.
@@ -12,6 +12,17 @@ WebApp: http://tienganhthatde.com/chat/
 	</author>
     <content src="index.html" />
     <access origin="*" />
+
+    <!--
+
+    <icon src="www/icon.png"/>
+
+    <icon src="www/images/res-android/drawable-ldpi/icon.png" platform="android" density="ldpi"/>
+    <icon src="www/images/res-android/drawable-mdpi/icon.png" platform="android" density="mdpi"/>
+    <icon src="www/images/res-android/drawable-hdpi/icon.png" platform="android" density="hdpi"/>
+    <icon src="www/images/res-android/drawable-xhdpi/icon.png" platform="android" density="xhdpi"/>
+
+	-->
 
     <!--
     <preference name="DisallowOverscroll" value="true" />

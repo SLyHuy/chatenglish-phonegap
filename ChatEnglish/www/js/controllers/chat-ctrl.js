@@ -50,6 +50,7 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 
 		if(ionic.Platform.isWebView()){
 			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+			cordova.plugins.Keyboard.disableScroll(true);
 		}
 
 		window.addEventListener('native.keyboardshow', keyboardShowHandler);
@@ -97,6 +98,10 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 			if (timer){
 				isTyping = false;
 				$interval.cancel(timer);
+			}
+
+			if (data.from == 'system' && data.message == 'Error! Please try again.'){
+				window.userData = null;
 			}
 
 		}
