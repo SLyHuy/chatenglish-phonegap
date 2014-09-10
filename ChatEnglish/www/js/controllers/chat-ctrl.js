@@ -50,6 +50,7 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 
 		if(ionic.Platform.isWebView()){
 			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+			cordova.plugins.Keyboard.disableScroll(true);
 		}
 
 		window.addEventListener('native.keyboardshow', keyboardShowHandler);
