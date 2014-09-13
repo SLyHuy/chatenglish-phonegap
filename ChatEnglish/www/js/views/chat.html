@@ -1,4 +1,7 @@
 <ion-view title="{{title}}" hide-back-button="false">
+	<ion-nav-buttons side="right">
+		<i class="button button-icon icon ion-thumbsup" ng-class="{'s-color': !strangerLiked, 'color-liked-stranger': strangerLiked}" ng-click="likeStranger()" ng-show="showLike"></i>
+	</ion-nav-buttons>
 	<ion-content class="chat-page" id="chatDetailView">		
 		<div style="margin-top:0.5em;" id="chatDetailContent">
 			<div ng-repeat="item in chats" ng-show="!item.isDelete" ng-class="{	'chat-time': item.type == 'time',
