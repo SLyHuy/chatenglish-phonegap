@@ -116,6 +116,15 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 			}
 		}
 
+		//Check Like function
+		if (data.type == 'chat' && data.from == 'system' && data.stranger){
+			$scope.showLike = true;
+
+			if(data.stranger.isLiked){
+				$scope.strangerLiked = true;
+			}
+		}
+
 		if (content){
 			$scope.chats.push(content);
 		}
@@ -193,6 +202,26 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 
 		}
 	}
+
+	$scope.likeStranger = function(){
+		if ($scope.strangerLiked){
+			return false;
+		}
+		$scope.strangerLiked = true;
+
+		chatService.sendMessage({
+			type: 'action',
+			action: 'like'
+		});
+
+		var content = {
+			type: 'system',
+			content : 'You\'ve just like the stranger. Thank you.'
+		};
+
+		$scope.chats.push(content);
+		$ionicScrollDelegate.scrollBottom(true);
+	};
 
 	// var countText = 0;
 	// $interval(function(){

@@ -11,20 +11,13 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 		}
 		//$state.transitionTo('chat');
 
-		if (!window.isLogin){
+		if (!window.isLogin || window.userData == undefined || !window.userData.userID || window.userData.userID == 'null'){
 			// $ionicLoading.show({
 			// 	template: 'Please login!'
 			// });
 			appService.doLogin(function(result){
 				console.log(result);
 				if (result){	
-
-					if (result.userId){
-						result.userID = result.userId;
-					}
-					else{
-						result.userId = result.userID;
-					}
 
 					window.userData = result;
 
@@ -53,17 +46,10 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 		//check fb login status
 		appService.checkLogin(function(response){
 			//$scope.$apply(function(){
-				if (response && response.userID != null){
+				if (response && response.userID != null && response.userID != 'null'){
 					window.isLogin = $scope.isLogin = true;
 					$scope.titleBtn = 'New Chat';
 					$scope.textHeader = 'Start chatting with Stranger';
-
-					// if (response.userId){
-					// 	response.userID = response.userId;
-					// }
-					// else{
-					// 	response.userId = response.userID;
-					// }
 
 					window.userData = response;
 				}
@@ -93,7 +79,7 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 
 		if (window.codova){
 			// if in webview (such as codova)
-			if (window.userData === null){
+			if (window.userData === null || window.userData == 'null'){
 				fbInited = true;
 				callbackFB();
 			}
