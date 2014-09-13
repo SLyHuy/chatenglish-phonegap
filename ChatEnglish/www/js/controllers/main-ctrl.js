@@ -53,7 +53,7 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 		//check fb login status
 		appService.checkLogin(function(response){
 			//$scope.$apply(function(){
-				if (response && response.userID != 'null'){
+				if (response && response.userID != null){
 					window.isLogin = $scope.isLogin = true;
 					$scope.titleBtn = 'New Chat';
 					$scope.textHeader = 'Start chatting with Stranger';
@@ -93,7 +93,7 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 
 		if (window.codova){
 			// if in webview (such as codova)
-			if (window.userData == 'null'){
+			if (window.userData === null){
 				fbInited = true;
 				callbackFB();
 			}

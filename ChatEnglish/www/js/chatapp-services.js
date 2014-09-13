@@ -31,25 +31,10 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 	var timer;
 
 	function doLogin(callback){
-		var isLoginByTimer = false;
-
-		// timer = $interval(function(){
-		// 	checkLogin(function(authResponse){
-		// 		if (response.status === 'connected') {
-		// 			isLoginByTimer = true;
-		// 			$interval.cancel(timer);
-		// 			callback && callback(authResponse);
-		// 		}
-		// 	});
-		// }, 200);
 
 		if (window.cordova){
 			facebookConnectPlugin.login(['email','public_profile','user_friends'], function(response) {
 				console.log(response);
-				$interval.cancel(timer);
-				if (isLoginByTimer){
-					return;
-				}
 				if(response.authResponse) {
 					// FB.api('/me', function(response) {
 					// 	console.log(response);
@@ -69,10 +54,6 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 		else{
 			FB.login(function(response) {
 				console.log(response);
-				$interval.cancel(timer);
-				if (isLoginByTimer){
-					return;
-				}
 				if(response.authResponse) {
 					// FB.api('/me', function(response) {
 					// 	console.log(response);
@@ -108,11 +89,6 @@ ChatApp.factory('chatService', function(/*$location, $rootScope, $http, $state, 
 
 	function onConnect(){
 		console.log('Websocket connected!!');
-		// for (var i = 0 ; i < _querePendingMessage.length ; i++){
-		// 	var message = _querePendingMessage[i];
-		// 	sendSocketMessage(message.type, message.content);
-		// }
-		// _querePendingMessage = [];
 		callbacks.callbackConnect && callbacks.callbackConnect();
 	};
 
