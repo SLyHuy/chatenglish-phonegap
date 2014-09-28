@@ -120,7 +120,7 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 		if (data.type == 'chat' && data.from == 'system' && data.stranger){
 			$scope.showLike = true;
 
-			if(data.stranger.isLiked){
+			if (data.stranger.isLiked){
 				$scope.strangerLiked = true;
 			}
 		}
