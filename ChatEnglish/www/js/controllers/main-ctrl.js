@@ -1,5 +1,5 @@
 ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appService){
-	$scope.title = 'Chat với người lạ by English';
+	$scope.title = 'Chat English';
 	$scope.titleBtn = 'New Chat';
 	$scope.textHeader = 'Start chatting with Stranger';
 	$scope.isLogin = window.isLogin = true;
@@ -116,7 +116,7 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 				}
 				js = d.createElement(s);
 				js.id = id;
-				js.src = "http://connect.facebook.net/en_US/sdk.js";
+				js.src = "https://connect.facebook.net/en_US/sdk.js";
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
 		}

@@ -1,8 +1,11 @@
-ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $ionicScrollDelegate, chatService){
-	$scope.title = 'Chat với người lạ by English';
+ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $ionicScrollDelegate, $ionicPopover, $ionicModal, $ionicPopup, $ionicNavBarDelegate, chatService){
+	$scope.title = 'Chat English';
 	$scope.chats = [];
-	// $scope.typingText = 'typing...';
+	$scope.reportData = {};
 
+	$scope.inBlockList = false;
+	var blocks = [];
+	var isBlock = false;
 
 	if (window.device){
 		if (window.device.platform.toLowerCase() == 'android'){
@@ -48,6 +51,11 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 
 	function initChat(){
 
+		var localBlocks = window.localStorage.getItem('blocks');
+		if (localBlocks){
+			blocks = JSON.parse(localBlocks);
+		}
+
 		if(ionic.Platform.isWebView()){
 			cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
 			cordova.plugins.Keyboard.disableScroll(true);
@@ -66,7 +74,7 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 	};
 
 	function onClose(){
-		$scope.$apply(function(){	
+		$scope.$apply(function(){
 			$scope.chats.push({
 				type: 'system',
 				content: 'You has been disconnected, please exit and make new chat.'
@@ -117,20 +125,58 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 		}
 
 		//Check Like function
-		if (data.type == 'chat' && data.from == 'system' && data.stranger){
-			$scope.showLike = true;
+		if (data.stranger){
+			$scope.haveStranger = true;			
+			$scope.strangerLiked = data.stranger.isLiked;
 
-			if (data.stranger.isLiked){
-				$scope.strangerLiked = true;
+			$scope.infoStranger = {
+				fullId: data.stranger.id,
+				shortId: parseInt(data.stranger.id, 10),
+				liked: data.stranger.liked
+			};
+
+			//Check blocklist
+			if (data.from == 'system'){
+				for (var i = 0; i < blocks.length; i++){
+					if (blocks[i] == data.stranger.id){
+						isBlock = true;
+						$scope.inBlockList = true;
+						break;
+					}
+				}
+
+				if (isBlock){
+					$ionicPopup.confirm({
+						title: '',
+						template: '<h4 class="title text-center">Stranger was blocked by you. Do you want to continue to chat with him?</h4>',
+						cancelText: 'Yes',
+						okText: 'No, I don\'t.'
+					}).then(function(res){
+						if (!res){
+							//Yes
+							isBlock = false;
+						}
+						else {
+							//No
+							chatService.exit();
+							$ionicNavBarDelegate.back();
+						}
+					});
+				}
 			}
+			
 		}
 
 		if (content){
-			$scope.chats.push(content);
+			if (isBlock && data.from == 'stranger'){
+
+			}
+			else{
+				$scope.chats.push(content);
+			}			
 		}
 		
-		$scope.$apply(function(){
-			
+		$scope.$apply(function(){			
 			$ionicScrollDelegate.scrollBottom(true);
 		});
 	}
@@ -213,6 +259,9 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 			type: 'action',
 			action: 'like'
 		});
+		$scope.infoStranger.liked++;
+
+		$scope.popoverChat.hide();
 
 		var content = {
 			type: 'system',
@@ -223,43 +272,115 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 		$ionicScrollDelegate.scrollBottom(true);
 	};
 
-	// var countText = 0;
-	// $interval(function(){
-	// 	countText = (countText + 1) % 4;
-	// 	$scope.typingText = 'typing' + '...'.substr(3 - countText);
-	// 	// $scope.$apply(function(){
-	// 	// 	$scope.typingText = 'typing' + '...'.substr(3 - countText);
-	// 	// });
+	$ionicPopover.fromTemplateUrl('templates/popover.html', {
+		scope: $scope,
+	}).then(function(popover) {
+    	$scope.popoverChat = popover;
+	});
 
-	// }, 500);
+	$scope.showPopoverChat = function($event){
+		$scope.popoverChat.show($event);
+	};
 
-	// data = data.concat([{
-	// 	type: 'me',
-	// 	content : 'You at the airport yet aaa?'
-	// },{
-	// 	type: 'me',
-	// 	content : 'I\'m in trafic. Wondering if we have to go through is customs in Toronto or San Francisco.'
-	// },{
-	// 	type: 'stranger',
-	// 	content : 'Customs in toronto'
-	// },{
-	// 	type: 'me',
-	// 	content : 'Sweet. Thx brah'
-	// },{
-	// 	type: 'time',
-	// 	date: 'Thu, Sep 19',
-	// 	time: '1:26 PM'
-	// },{
-	// 	type: 'me',
-	// 	content : 'Sub b.'
-	// },{
-	// 	type: 'time',
-	// 	date: 'Sun, Sep 22',
-	// 	time: '4:18 PM'
-	// },{
-	// 	type: 'stranger',
-	// 	content : 'Just chillin\'s and hanging out bro. What\'s your plans tomm? Are we still doing that thing we discussed about?'
-	// }]);
+	$ionicModal.fromTemplateUrl('templates/report-modal.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal){
+		$scope.reportModal = modal;
+	});
+
+	$scope.openReportModal = function(){
+		if ($scope.reported){
+			return false;
+		}
+		$scope.reportModal.show();
+	};
+
+	$scope.closeReportModal = function(){
+		$scope.reportModal.hide();
+	};
+
+	$scope.sendReport = function(){
+		if ($scope.reported){
+			return false;
+		}
+
+		if (!$scope.reportData.reason){
+			$ionicPopup.alert({
+				template: '<h4 class="title text-center">Please choose reason</h4>'
+			});
+		}
+		else{
+			chatService.sendMessage({
+				type: 'report',
+				reason: $scope.reportData.reason
+			});
+			$scope.reported = true;
+
+			$ionicPopup.alert({
+				template: '<h4 class="title text-center">Your report has been sent. Thank you.</h4>'
+			}).then(function(){
+				$scope.reportModal.hide();
+				$scope.popoverChat.hide();
+			});
+
+		}
+	};
+
+	$ionicModal.fromTemplateUrl('templates/info-modal.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal){
+		$scope.infoModal = modal;
+	});
+
+	$scope.openInfoModal = function(){
+		$scope.infoModal.show();
+	};
+
+	$scope.closeInfoModal = function(){
+		$scope.infoModal.hide();
+	};
+
+	$scope.blockStranger = function(){
+		var template = '<h4 class="title text-center">Do you want block stranger and exit?</h4>';
+		if ($scope.inBlockList){
+			template = '<h4 class="title text-center">Do you want unblock stranger?</h4>';
+		}
+		$ionicPopup.confirm({
+			title: '',
+			template: template,
+			okText: 'Yes'
+		}).then(function(res){
+			if (res){
+				if ($scope.inBlockList == false){
+					blocks.push($scope.infoStranger.fullId);
+					window.localStorage.setItem('blocks', JSON.stringify(blocks));
+					$scope.inBlockList = true;
+
+					$scope.popoverChat.hide();
+					chatService.exit();
+					$ionicNavBarDelegate.back();
+				}
+				else{
+					for (var i = 0; i < blocks.length; i++){
+						if (blocks[i] == $scope.infoStranger.fullId){
+							blocks.splice(i, 1);
+							break;
+						}
+					}
+					$scope.inBlockList = false;
+					isBlock = false;
+					$scope.popoverChat.hide();
+				}				
+			}
+			else {
+				
+			}
+		});
+		
+	};
+
 
 	initChat();
 });
