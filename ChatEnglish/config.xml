@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.tienganhthatde.chat" version="0.2.5" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" versionCode="4">
+<widget id="com.tienganhthatde.chat" version="0.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0" versionCode="6">
     <name>Chat English</name>
     <description>Chat với người lạ by English. Hỗ trợ việc luyện tập giao tiếp Tiếng Anh. 
 Sản phẩm của Tiếng Anh Thật Dễ.
