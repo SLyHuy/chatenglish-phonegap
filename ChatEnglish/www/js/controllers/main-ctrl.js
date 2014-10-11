@@ -44,6 +44,7 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 
 	var callbackFB = function(){
 		//check fb login status
+		//return;
 		appService.checkLogin(function(response){
 			//$scope.$apply(function(){
 				if (response && response.userID != null && response.userID != 'null'){
@@ -68,7 +69,7 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
     // if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
     // if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
     // if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
-	if (typeof window.userData == 'undefined' || window.userData == null || (!window.codova && typeof window.FB == 'undefined')){
+	if (typeof window.userData == 'undefined' || window.userData == null || (!window.cordova && typeof window.FB == 'undefined')){
 
 		$ionicLoading.show({
 			template: 'Loading facebook connection...'
@@ -77,8 +78,8 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 		fbInited = false;
 		$scope.titleBtn = 'Loading...';
 
-		if (window.codova){
-			// if in webview (such as codova)
+		if (window.cordova){
+			// if in webview (such as cordova)
 			if (window.userData === null || window.userData == 'null'){
 				fbInited = true;
 				callbackFB();

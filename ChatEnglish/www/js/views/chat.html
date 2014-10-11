@@ -28,7 +28,8 @@
 	
 	<form ng-submit="sendChat()">
 		<div class="bar bar-footer sent-chat" keyboard-attach ng-class="{'lowerKitKat': lowerKitKat}">
-			<input type="text" class="item item-input" ng-model="newChat" style="font-size: 1.2em;" focus-me="focusInput"  ng-keyup="chatKeyUp($event)"/>				
+			<input type="text" class="item item-input" ng-model="newChat" style="font-size: 1.2em;"  ng-keypress="chatKeyAction($event)"/>
+			<!-- focus-me="focusInput" -->		
 			<input class="button button-clear texbox-button s-color" type="submit" value="Send" style="margin:0;" />	
 		</div>
 	</form>

@@ -26,26 +26,26 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 	console.log(userData);
 
 	function keyboardShowHandler(e){
-		var element = document.getElementById('chatDetailView');
-		element.style['height'] = (e.clientHeight - e.keyboardHeight) + 'px';
+		// var element = document.getElementById('chatDetailView');
+		// element.style['height'] = (e.clientHeight - e.keyboardHeight) + 'px';
 		$ionicScrollDelegate.resize();
 
-		console.log('show');
+		//console.log('show');
 
-		$timeout(function(){
-			var position = $ionicScrollDelegate.getScrollPosition();
-			position.top += (e.keyboardHeight);
-			$ionicScrollDelegate.scrollTo(position.left, position.top);
-			console.log('show + count');
-			//$ionicScrollDelegate.scrollBottom(true);
-		});
+		//$timeout(function(){
+		// 	var position = $ionicScrollDelegate.getScrollPosition();
+		// 	position.top += (e.keyboardHeight);
+		// 	$ionicScrollDelegate.scrollTo(position.left, position.top);
+		// 	//console.log('show + count');
+			$ionicScrollDelegate.scrollBottom(false);
+		//});
 	}
 	
 	function keyboardHideHandler(e){
-		var element = document.getElementById('chatDetailView');
-		element.style['height'] = '';
+		// var element = document.getElementById('chatDetailView');
+		// element.style['height'] = '';
 		$ionicScrollDelegate.resize();
-		console.log('hide');
+		//console.log('hide');
 		
 	}
 
@@ -71,6 +71,30 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 			callbackConnect: function(){},
 			callbackClose: onClose
 		});
+
+		// var uuid = 'browser';
+		// if (window.device){
+		// 	uuid = window.device.uuid;
+		// }
+		// var url = Config.urlWebSocket;// + '?userID=' + userData.userID + '&accessToken=' + userData.accessToken + '&uuid=' + uuid;
+
+		// var conn = new WebSocket(url);
+
+		// console.log(conn);
+		// console.log(url);
+
+		// conn.onerror = function(e){
+		// 	console.log('error');
+		// 	console.log(e);
+		// }
+
+		// conn.onopen = function(){
+		// 	console.log('Open');
+		// };
+
+		// conn.onclose = function(){
+		// 	console.log('Close');
+		// }
 	};
 
 	function onClose(){
@@ -87,6 +111,7 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 	var timer;
 	var lastTimeKeyPress = 0;
 	var typingEle;
+	var timeChat = new Date();
 
 	function receiveChat(data){
 		var content;
@@ -176,7 +201,7 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 			}			
 		}
 		
-		$scope.$apply(function(){			
+		$scope.$apply(function(){
 			$ionicScrollDelegate.scrollBottom(true);
 		});
 	}
@@ -186,6 +211,13 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 	$scope.sendChat = function(){
 		var that = this;
 		that.newChat = that.newChat.trim().replace(/\s{2,}/g, ' ');
+
+		var now = new Date();
+		if (now - timeChat < 1000){
+			timeChat = new Date();
+			return false;
+		}
+
 		var newChat = that.newChat;
 		if (newChat && newChat !== ''){
 			if (timer){
@@ -217,11 +249,12 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 
 		that.newChat = '';
 		$scope.focusInput = true;
+		timeChat = new Date();
 	};
 
 
 	//Keypress not working with the phone using Swype
-	$scope.chatKeyUp = function(e){
+	$scope.chatKeyAction = function(e){
 		lastTimeKeyPress = e.timeStamp;
 		if (e.keyIdentifier == 'Enter' || e.keyCode == 13 || e.which == 13){
 			return;
