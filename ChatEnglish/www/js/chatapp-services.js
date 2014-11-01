@@ -4,13 +4,18 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 			facebookConnectPlugin.getLoginStatus(function(response) {
 				console.log(JSON.stringify(response));
 				if (response.status === 'connected') {
-					callback && callback(response.authResponse);
+					facebookConnectPlugin.api('/me', [], function(nameRes){
+						response.authResponse.name = nameRes.name;
+						callback && callback(response.authResponse);
+					}, function(error){
+						console.log(error);
+						callback && callback(false);
+					});
 				}
 				else{
 					callback && callback(false);
 				}
-			}, function(response){
-				console.log(response);
+			}, function(error){
 				callback && callback(false);
 			});
 		}
@@ -18,7 +23,15 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 			FB.getLoginStatus(function(response) {
 				console.log(response);
 				if (response.status === 'connected') {
-					callback && callback(response.authResponse);
+					FB.api('/me', {fields: 'name'}, function(nameRes) {
+						if (!nameRes || nameRes.error){
+							callback && callback(false);
+						}
+						else{
+							response.authResponse.name = nameRes.name;
+							callback && callback(response.authResponse);
+						}
+					});
 				}
 				else{
 					callback && callback(false);
@@ -36,18 +49,20 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 			facebookConnectPlugin.login(['email','public_profile','user_friends'], function(response) {
 				console.log(response);
 				if(response.authResponse) {
-					// FB.api('/me', function(response) {
-					// 	console.log(response);
-					// });
-					callback && callback(response.authResponse);
+					facebookConnectPlugin.api('/me', [], function(nameRes){
+						response.authResponse.name = nameRes.name;
+						callback && callback(response.authResponse);
+					}, function(){
+						callback && callback(false);
+					});
 				} else {
 					console.log('User cancelled login or did not fully authorize.');
 					callback && callback(false);
 				}
 				
-			}, function(response){
+			}, function(error){
 				console.log('User cancelled login or did not fully authorize.');
-				console.log(response)
+				console.log(error)
 				callback && callback(false);
 			});
 		}
@@ -55,11 +70,17 @@ ChatApp.factory('appService', function($rootScope, $interval, $timeout) {
 			FB.login(function(response) {
 				console.log(response);
 				if(response.authResponse) {
-					// FB.api('/me', function(response) {
-					// 	console.log(response);
-					// });
-					callback && callback(response.authResponse);
-				} else {
+					FB.api('/me', {fields: 'name'}, function(nameRes) {
+						if (!nameRes || nameRes.error){
+							callback && callback(false);
+						}
+						else{
+							response.authResponse.name = nameRes.name;
+							callback && callback(response.authResponse);
+						}
+					});
+				}
+				else {
 					console.log('User cancelled login or did not fully authorize.');
 					callback && callback(false);
 				}

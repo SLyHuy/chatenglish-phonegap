@@ -115,6 +115,10 @@
 	</ion-header-bar>
 	<ion-content>
 		<div class="list">
+			<div class="item item-avatar" ng-show="infoStranger.avatar">
+				<img src="{{infoStranger.avatar}}">
+				<h2 class="padding-top">{{infoStranger.name}}</h2>
+			</div>
 			<div class="item">
 				<h2>Identify</h2>
 				<p style="white-space: normal;">Short Id: <strong>#{{infoStranger.shortId}}</strong>
