@@ -1,5 +1,5 @@
 ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appService){
-	$scope.title = 'Chat với người lạ by English';
+	$scope.title = 'Chat English';
 	$scope.titleBtn = 'New Chat';
 	$scope.textHeader = 'Start chatting with Stranger';
 	$scope.isLogin = window.isLogin = true;
@@ -44,6 +44,7 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 
 	var callbackFB = function(){
 		//check fb login status
+		//return;
 		appService.checkLogin(function(response){
 			//$scope.$apply(function(){
 				if (response && response.userID != null && response.userID != 'null'){
@@ -68,7 +69,7 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
     // if ((typeof cordova == 'undefined') && (typeof Cordova == 'undefined')) alert('Cordova variable does not exist. Check that you have included cordova.js correctly');
     // if (typeof CDV == 'undefined') alert('CDV variable does not exist. Check that you have included cdv-plugin-fb-connect.js correctly');
     // if (typeof FB == 'undefined') alert('FB variable does not exist. Check that you have included the Facebook JS SDK file.');
-	if (typeof window.userData == 'undefined' || window.userData == null || (!window.codova && typeof window.FB == 'undefined')){
+	if (typeof window.userData == 'undefined' || window.userData == null || (!window.cordova && typeof window.FB == 'undefined')){
 
 		$ionicLoading.show({
 			template: 'Loading facebook connection...'
@@ -77,8 +78,8 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 		fbInited = false;
 		$scope.titleBtn = 'Loading...';
 
-		if (window.codova){
-			// if in webview (such as codova)
+		if (window.cordova){
+			// if in webview (such as cordova)
 			if (window.userData === null || window.userData == 'null'){
 				fbInited = true;
 				callbackFB();
@@ -116,7 +117,7 @@ ChatApp.controller('MainCtrl', function($scope, $state, $ionicLoading, appServic
 				}
 				js = d.createElement(s);
 				js.id = id;
-				js.src = "http://connect.facebook.net/en_US/sdk.js";
+				js.src = "https://connect.facebook.net/en_US/sdk.js";
 				fjs.parentNode.insertBefore(js, fjs);
 			}(document, 'script', 'facebook-jssdk'));
 		}

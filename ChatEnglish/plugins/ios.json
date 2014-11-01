@@ -1,1 +1,158 @@
-{"prepare_queue":{"installed":[],"uninstalled":[]},"config_munge":{"config.xml":{"/*":{"<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>":1,"<feature name=\"FacebookConnectPlugin\"><param name=\"ios-package\" value=\"FacebookConnectPlugin\" /><param name=\"onload\" value=\"true\" /></feature>":1,"<plugin name=\"FacebookConnectPlugin\" value=\"FacebookConnectPlugin\" />":1,"<access origin=\"https://m.facebook.com\" />":1,"<access origin=\"https://graph.facebook.com\" />":1,"<access origin=\"https://api.facebook.com\" />":1,"<access origin=\"https://*.fbcdn.net\" />":1,"<access origin=\"https://*.akamaihd.net\" />":1}},"framework":{"libsqlite3.dylib":{"false":1},"Social.framework":{"true":1},"Accounts.framework":{"true":1},"AdSupport.framework":{"true":1},"Security.framework":{"true":1}},"*-Info.plist":{"FacebookAppID":{"<string>1449890398617312</string>":1},"FacebookDisplayName":{"<string>Chat với người lạ by English</string>":1},"CFBundleURLTypes":{"<array><dict><key>CFBundleURLSchemes</key><array><string>fb1449890398617312</string></array></dict></array>":1}}},"installed_plugins":{"com.ionic.keyboard":{"PACKAGE_NAME":"com.tienganhthatde.chat"},"com.phonegap.plugins.facebookconnect":{"APP_ID":"1449890398617312","APP_NAME":"Chat với người lạ by English","PACKAGE_NAME":"com.tienganhthatde.chat"}},"dependent_plugins":{}}
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {
+            "config.xml": {
+                "parents": {
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"InAppBrowser\"><param name=\"ios-package\" value=\"CDVInAppBrowser\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Vibration\"><param name=\"ios-package\" value=\"CDVVibration\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"FacebookConnectPlugin\"><param name=\"ios-package\" value=\"FacebookConnectPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<plugin name=\"FacebookConnectPlugin\" value=\"FacebookConnectPlugin\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://m.facebook.com\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://graph.facebook.com\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://api.facebook.com\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://*.fbcdn.net\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<access origin=\"https://*.akamaihd.net\" />",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "framework": {
+                "parents": {
+                    "CoreGraphics.framework": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "AudioToolbox.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "libsqlite3.dylib": [
+                        {
+                            "xml": "false",
+                            "count": 1
+                        }
+                    ],
+                    "Social.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "Accounts.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "AdSupport.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ],
+                    "Security.framework": [
+                        {
+                            "xml": "true",
+                            "count": 1
+                        }
+                    ]
+                }
+            },
+            "*-Info.plist": {
+                "parents": {
+                    "FacebookAppID": [
+                        {
+                            "xml": "<string>1449890398617312</string>",
+                            "count": 1
+                        }
+                    ],
+                    "FacebookDisplayName": [
+                        {
+                            "xml": "<string>Chat với người lạ by English</string>",
+                            "count": 1
+                        }
+                    ],
+                    "CFBundleURLTypes": [
+                        {
+                            "xml": "<array><dict><key>CFBundleURLSchemes</key><array><string>fb1449890398617312</string></array></dict></array>",
+                            "count": 1
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "installed_plugins": {
+        "com.ionic.keyboard": {
+            "PACKAGE_NAME": "com.tienganhthatde.chat"
+        },
+        "com.ququplay.websocket.WebSocket": {
+            "PACKAGE_NAME": "com.tienganhthatde.chat"
+        },
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "com.tienganhthatde.chat"
+        },
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "com.tienganhthatde.chat"
+        },
+        "org.apache.cordova.inappbrowser": {
+            "PACKAGE_NAME": "com.tienganhthatde.chat"
+        },
+        "org.apache.cordova.vibration": {
+            "PACKAGE_NAME": "com.tienganhthatde.chat"
+        },
+        "com.phonegap.plugins.facebookconnect": {
+            "APP_ID": "1449890398617312",
+            "APP_NAME": "Chat với người lạ by English",
+            "PACKAGE_NAME": "com.tienganhthatde.chat"
+        }
+    },
+    "dependent_plugins": {}
+}

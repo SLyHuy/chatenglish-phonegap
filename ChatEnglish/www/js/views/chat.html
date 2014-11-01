@@ -1,6 +1,6 @@
 <ion-view title="{{title}}" hide-back-button="false">
 	<ion-nav-buttons side="right">
-		<i class="button button-icon icon ion-thumbsup" ng-class="{'s-color': !strangerLiked, 'color-liked-stranger': strangerLiked}" ng-click="likeStranger()" ng-show="showLike"></i>
+		<i class="button button-icon ion-more s-color" ng-click="showPopoverChat($event)" ng-show="haveStranger"></i>
 	</ion-nav-buttons>
 	<ion-content class="chat-page" id="chatDetailView">		
 		<div style="margin-top:0.5em;" id="chatDetailContent">
@@ -28,9 +28,110 @@
 	
 	<form ng-submit="sendChat()">
 		<div class="bar bar-footer sent-chat" keyboard-attach ng-class="{'lowerKitKat': lowerKitKat}">
-			<input type="text" class="item item-input" ng-model="newChat" style="font-size: 1.2em;" focus-me="focusInput"  ng-keyup="chatKeyUp($event)"/>				
+			<input type="text" class="item item-input" ng-model="newChat" style="font-size: 1.2em;"  ng-keypress="chatKeyAction($event)"/>
+			<!-- focus-me="focusInput" -->		
 			<input class="button button-clear texbox-button s-color" type="submit" value="Send" style="margin:0;" />	
 		</div>
 	</form>
 	
 </ion-view>
+
+
+<script id="templates/popover.html" type="text/ng-template">
+	<ion-popover-view class="popover-chat">
+		<ion-content>
+			<div class="list">
+				<a class="item item-icon-left" href="javascript:void(0);" ng-click="likeStranger()">
+					<i class="icon ion-ios7-heart-outline" ng-class="{'s-color': !strangerLiked, 'color-liked-stranger': strangerLiked}"></i>Like
+				</a>
+				<a class="item item-icon-left" href="javascript:void(0);" ng-click="openReportModal()">
+					<i class="icon ion-ios7-flag-outline" ng-class="{'s-color': !reported, 'color-liked-stranger': reported}"></i>Report
+				</a>
+				<a class="item item-icon-left" href="javascript:void(0);" ng-click="blockStranger()">
+					<i class="icon ion-email ion-ios7-minus-outline s-color"></i>{{inBlockList ? 'UnBlock' : 'Block'}}
+				</a>
+				<a class="item item-icon-left" href="javascript:void(0);" ng-click="openInfoModal()">
+					<i class="icon ion-email ion-ios7-information-outline s-color" ></i>Info
+				</a>
+			</div>
+		</ion-content>
+	</ion-popover-view>
+</script>
+
+
+<script id="templates/report-modal.html" type="text/ng-template">
+  <ion-modal-view>
+	<ion-header-bar>
+	  <h1 class="title">Report stranger</h1>
+	  <div class="button button-clear" ng-click="closeReportModal()"><span class="icon ion-ios7-close-empty s-color"></span></div>
+	</ion-header-bar>
+	<ion-content>
+		<div class="list">
+			<label class="item item-radio">
+				<input type="radio" name="group" ng-model="reportData.reason" value="Spam, Quảng cáo">
+				<div class="item-content">
+					<h2>Spam / Advertising</h2>
+					<p>Spam, Quảng cáo</p>
+				</div>
+				<i class="radio-icon ion-ios7-checkmark-outline s-color"></i>
+			</label>
+			<label class="item item-radio">
+				<input type="radio" name="group" ng-model="reportData.reason" value="Quấy rối, đả kích">
+				<div class="item-content">
+					<h2>Harassed, lampooned.</h2>
+					<p>Quấy rối, đả kích</p>
+				</div>
+				<i class="radio-icon ion-ios7-checkmark-outline s-color"></i>
+			</label>
+			<label class="item item-radio">
+				<input type="radio" name="group" ng-model="reportData.reason" value="Lừa đảo, xuyên tạc">
+				<div class="item-content">
+					<h2>Fraud / Misrepresentation</h2>
+					<p>Lừa đảo, xuyên tạc</p>
+				</div>
+				<i class="radio-icon ion-ios7-checkmark-outline s-color"></i>
+			</label>
+			<div class="item text-center">
+				<button class="button button-positive" ng-click="sendReport()">
+					Send Report
+				</button>
+
+				<button class="button button-stable" ng-click="closeReportModal()">
+					Cancel
+				</button>
+			</div>
+		</div>
+
+		
+	</ion-content>
+  </ion-modal-view>
+</script>
+
+<script id="templates/info-modal.html" type="text/ng-template">
+  <ion-modal-view>
+	<ion-header-bar>
+	  <h1 class="title">Info Stranger</h1>
+	  <div class="button button-clear" ng-click="closeInfoModal()"><span class="icon ion-ios7-close-empty s-color"></span></div>
+	</ion-header-bar>
+	<ion-content>
+		<div class="list">
+			<div class="item">
+				<h2>Identify</h2>
+				<p style="white-space: normal;">Short Id: <strong>#{{infoStranger.shortId}}</strong>
+				<br/>
+				Full Id: <strong>#{{infoStranger.fullId}}</strong>
+				</p>
+			</div>
+			<div class="item">
+				<h2>Liked</h2>
+				<p>Liked of Stranger: <strong>{{infoStranger.liked}}</strong></p>
+			</div>
+		</div>
+		<div class="item text-center">
+			<button class="button button-positive" ng-click="closeInfoModal()">
+				Close
+			</button>
+		</div>
+	</ion-content>
+  </ion-modal-view>
+</script>

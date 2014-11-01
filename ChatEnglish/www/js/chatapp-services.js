@@ -117,7 +117,8 @@ ChatApp.factory('chatService', function(/*$location, $rootScope, $http, $state, 
 			WebsocketService.bind('message', onReceiceMessage);
 			WebsocketService.connect(url);
 
-			console.log(state);
+			// console.log(state);
+			// console.log(WebsocketService.getState());
 
 			return false;
 		}
@@ -189,10 +190,12 @@ ChatApp.factory('WebsocketService', function(){
 	}
 	
 	function connect(url) {
-		if (typeof(MozWebSocket) == 'function')
+		if (typeof(MozWebSocket) == 'function'){
 			conn = new MozWebSocket(url);
-		else
+		}
+		else{
 			conn = new WebSocket(url);
+		}
 
 		// dispatch to the right handlers
 		conn.onmessage = function(evt){
@@ -201,6 +204,7 @@ ChatApp.factory('WebsocketService', function(){
 
 		conn.onclose = function(){dispatch('close',null)};
 		conn.onopen = function(){dispatch('open',null)};
+
 	}
 
 	function getState() {

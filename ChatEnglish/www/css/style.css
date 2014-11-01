@@ -88,3 +88,16 @@ input[type=color], input[type=date], input[type=datetime-local], input[type=date
 .color-liked-stranger{
     color: #a6a6a6!important;
 }
+
+.popover-chat{
+    height: 230px;
+    width: 180px;
+}
+
+.text-center{
+    text-align: center;
+}
+
+.popup .popup-head{
+    display: none;
+}
