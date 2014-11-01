@@ -379,6 +379,7 @@ ChatApp.controller('ChatCtrl', function($scope, $state, $timeout, $interval, $io
 
 	$scope.closeInfoModal = function(){
 		$scope.infoModal.hide();
+		$scope.popoverChat.hide();
 	};
 
 	$scope.blockStranger = function(){
