@@ -45,7 +45,14 @@ WebApp: http://tienganhthatde.com/chat/
 		<!-- iPad Spotlight and Settings Icon -->
 		<icon src="res/ios/icon-50.png" width="50" height="50" />
 		<icon src="res/ios/icon-50@2x.png" width="100" height="100" />
-	   </platform>
+	</platform>
+
+	<platform name="android">
+		<icon src="res-android/drawable-ldpi/icon.png" density="ldpi" />
+		<icon src="res-android/drawable-mdpi/icon.png" density="mdpi" />
+		<icon src="res-android/drawable-hdpi/icon.png" density="hdpi" />
+		<icon src="res-android/drawable-xhdpi/icon.png" density="xhdpi" />
+	</platform>
 
 	<!--
 
